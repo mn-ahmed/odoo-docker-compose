@@ -1,17 +1,23 @@
-## Install odoo + Postgresql + Traefik on ubuntu 20.04 with docker-compose
-### What is Traefik:
-Traefik is the modern standard for Routing, Load Balancing, and Proxies for the Cloud, On-Prem, and Hybrid workloads. 
-Thnk's for [paraita](https://github.com/paraita/docker-compose-traefik-odoo-postgres)
-
-## Setup
+# Install odoo + Postgresql on ubuntu 20.04 with docker-compose
+## Requireements
 > Ubuntu 20.04 server, a user with sudo access
 
-> Install [Docker](https://docs.docker.com/get-docker/) and install [docker-compose](https://docs.docker.com/compose/install/compose-plugin/#install-using-the-repository)
+> Install [Docker](https://docs.docker.com/get-docker/)
 
-## Installing docker-compose
-
-```
+## Manual install docker-compose
 
 ```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+Set executable and permission for docker-compose
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
+Check docker-compose version
+```
+docker-compose --version
+```
+
+
 
 
