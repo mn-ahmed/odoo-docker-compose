@@ -28,7 +28,7 @@ cd odoo15
 ```
 sudo mkdir -p ./etc && sudo chmod -R 777 etc
 sudo mkdir -p ./addons && sudo chmod -R 777 addons
-sudo mkdir -p ./enterprise && sudo chmod -R 777 entreprise #for adding the enterprise addons
+sudo mkdir -p ./entreprise && sudo chmod -R 777 entreprise #for adding the entreprise addons
 sudo mkdir -p ./odoo && sudo chmod -R 777 odoo
 sudo mkdir -p ./postgres && sudo chmod -R 777 postgres
 ```
@@ -38,21 +38,21 @@ sudo nano docker-compose.yml
 ```
 Sample docker-compose file
 ```
-version: '1.0'
+version: '2'
 services:
   web:
     image: odoo:15.0
     container_name: odoo_15
     depends_on:
       - db
-	ports:
-	  - "90015:8069"
-	  - "80015:8072" # For live chat
-	volumes:
+    ports:
+      - "20015:8069"
+      - "20025:8072" # For live chat
+    volumes:
       - ./odoo:/var/lib/odoo
       - ./etc:/etc/odoo
       - ./addons:/mnt/extra
-      - ./enterprise:/mnt/enterprise
+      - ./entreprise:/mnt/entreprise
     environment:
       - HOST=db
       - USER=odoo15
@@ -61,7 +61,7 @@ services:
     image: postgres:12
     container_name: postgres_12
     ports:  
-      -5432:5432
+      - "5432:5432"
     volumes:  
       - ./postgres:/var/lib/postgresql/data
     environment:
@@ -87,7 +87,7 @@ Then run:
 ```
 sudo docker-compose up -d
 ```
-Now open Odoo from localhost:90015 or server_ip:90015
+Now open Odoo from localhost:20015 or server_ip:20015
 
 
 
