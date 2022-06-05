@@ -25,7 +25,6 @@ mkdir -p odoo15
 cd odoo15
 ```
 ## Create config, addons, odoo and postgres folders for the project environment
-
 ```
 sudo mkdir -p ./etc && sudo chmod -R 777 etc
 sudo mkdir -p ./addons && sudo chmod -R 777 addons
