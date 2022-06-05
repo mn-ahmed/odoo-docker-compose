@@ -28,7 +28,6 @@ cd odoo15
 ```
 sudo mkdir -p ./etc && sudo chmod -R 777 etc
 sudo mkdir -p ./addons && sudo chmod -R 777 addons
-sudo mkdir -p ./entreprise && sudo chmod -R 777 entreprise #for adding the entreprise addons
 sudo mkdir -p ./odoo && sudo chmod -R 777 odoo
 sudo mkdir -p ./postgres && sudo chmod -R 777 postgres
 ```
@@ -40,48 +39,45 @@ Sample docker-compose file
 ```
 version: '2'
 services:
-  web:
-    image: odoo:15.0
-    container_name: odoo_15
-    depends_on:
-      - db
-    ports:
-      - "20015:8069"
-      - "20025:8072" # For live chat
-    volumes:
-      - ./odoo:/var/lib/odoo
-      - ./etc:/etc/odoo
-      - ./addons:/mnt/extra
-      - ./entreprise:/mnt/entreprise
-    environment:
-      - HOST=db
-      - USER=odoo15
-      - PASSWORD=odoo15@strong_password
   db:
     image: postgres:12
-    container_name: postgres_12
-    ports:  
-      - "5432:5432"
+    user: root
     volumes:  
       - ./postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=odoo15@strong_password
       - POSTGRES_USER=odoo15
       - POSTGRES_DB=postgres 
+    restart: always
+  odoo15:
+    image: odoo:15.0
+    user: root
+    depends_on:
+      - db
+    ports:
+      - "20015:8069"
+      - "20025:8072" # For live chat
+    environment:
+      - HOST=db
+      - USER=odoo15
+      - PASSWORD=odoo15@strong_password
+    volumes:
+      - ./odoo:/var/lib/odoo
+      - ./etc:/etc/odoo
+      - ./addons:/mnt/extra
+    restart: always
 ```
 And a sample odoo.conf add inside ./etc/odoo.conf
 ```
 nano etc/odoo.conf
 ```
 ```
-admin_passwd = admin_password
-db_host = db
-db_user = odoo15
-db_password = odoo15@strong_password
-db_port = 5432
+[options]
 addons_path = /mnt/extra-addons
-proxy_mode = True
-data_dir = /var/lib/odoo
+data_dir = /etc/odoo
+admin_passwd = admin
+logfile = /etc/odoo/odoo-server.log
+;dev_mode = reload
 ```
 Then run:
 ```
