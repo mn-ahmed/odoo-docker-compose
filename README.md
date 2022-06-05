@@ -17,6 +17,28 @@ Check docker-compose version
 ```
 docker-compose --version
 ```
+## Create directory for the project
+```
+mkdir -p odoo15
+```
+```
+cd odoo15
+```
+## Create config, addons, odoo and postgres folders for the project environment
+
+```
+sudo mkdir -p ./etc && sudo chmod -R 777 etc
+sudo mkdir -p ./addons && sudo chmod -R 777 addons
+sudo mkdir -p ./enterprise && sudo chmod -R 777 entreprise #for adding the enterprise addons
+sudo mkdir -p ./odoo && sudo chmod -R 777 odoo
+sudo mkdir -p ./postgres && sudo chmod -R 777 postgres
+```
+## Create the docker-compose file
+```
+sudo nano docker-compose.yml
+```
+
+
 
 
 
