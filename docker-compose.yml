@@ -1,30 +1,30 @@
 version: '2'
 services:
-  web:
-    image: odoo:15.0
-    container_name: odoo_15
-    depends_on:
-      - db
-    ports:
-      - "20015:8069"
-      - "20025:8072" # For live chat
-    volumes:
-      - ./odoo:/var/lib/odoo
-      - ./etc:/etc/odoo
-      - ./addons:/mnt/extra
-      - ./entreprise:/mnt/entreprise
-    environment:
-      - HOST=db
-      - USER=odoo15
-      - PASSWORD=odoo15@strong_password
   db:
     image: postgres:12
-    container_name: postgres_12
-    ports:  
-      - "5432:5432"
+    user: root
     volumes:  
       - ./postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=odoo15@strong_password
       - POSTGRES_USER=odoo15
       - POSTGRES_DB=postgres 
+    restart: always
+  odoo15:
+    image: odoo:15.0
+    user: root
+    depends_on:
+      - db
+    ports:
+      - "20015:8069"
+      - "20025:8072" # For live chat
+    environment:
+      - HOST=db
+      - USER=odoo15
+      - PASSWORD=odoo15@strong_password
+    volumes:
+      - ./odoo:/var/lib/odoo
+      - ./etc:/etc/odoo
+      - ./addons:/mnt/extra
+    restart: always
+  
