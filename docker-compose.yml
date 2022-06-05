@@ -1,5 +1,4 @@
-
-version: '1.0'
+version: '2'
 services:
   web:
     image: odoo:15.0
@@ -7,12 +6,13 @@ services:
     depends_on:
       - db
     ports:
-      - "90015:8069"
-      - "80015:8072" # For live chat
+      - "20015:8069"
+      - "20025:8072" # For live chat
     volumes:
       - ./odoo:/var/lib/odoo
       - ./etc:/etc/odoo
       - ./addons:/mnt/extra
+      - ./entreprise:/mnt/entreprise
     environment:
       - HOST=db
       - USER=odoo15
@@ -21,7 +21,7 @@ services:
     image: postgres:12
     container_name: postgres_12
     ports:  
-      -5432:5432
+      - "5432:5432"
     volumes:  
       - ./postgres:/var/lib/postgresql/data
     environment:
