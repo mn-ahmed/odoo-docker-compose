@@ -25,6 +25,6 @@ services:
     volumes:
       - ./odoo:/var/lib/odoo
       - ./etc:/etc/odoo
-      - ./addons:/mnt/extra
+      - ./addons:/mnt/extra-addons
     restart: always
   
